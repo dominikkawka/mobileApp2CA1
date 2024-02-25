@@ -4,21 +4,18 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import ie.setu.mobileapp2ca1.R
+import ie.setu.mobileapp2ca1.adapters.RunningAdapter
+import ie.setu.mobileapp2ca1.adapters.RunningListener
 import ie.setu.mobileapp2ca1.databinding.ActivityRunningListBinding
-import ie.setu.mobileapp2ca1.databinding.CardRunningBinding
 import ie.setu.mobileapp2ca1.main.MainApp
 import ie.setu.mobileapp2ca1.models.RunningModel
-import ie.setu.mobileapp2ca1.adapters.RunningAdapter
 
-class  RunningListActivity : AppCompatActivity() {
+class RunningListActivity : AppCompatActivity(), RunningListener {
     lateinit var app: MainApp
     private lateinit var binding: ActivityRunningListBinding
 
@@ -32,7 +29,8 @@ class  RunningListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = RunningAdapter(app.runningTracks)
+        binding.recyclerView.adapter = RunningAdapter(app.runningTracks.findAll(), this)
+        RunningAdapter(app.runningTracks.findAll(),this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -56,7 +54,24 @@ class  RunningListActivity : AppCompatActivity() {
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
                 (binding.recyclerView.adapter)?.
-                notifyItemRangeChanged(0,app.runningTracks.size)
+                notifyItemRangeChanged(0,app.runningTracks.findAll().size)
+
+            }
+        }
+
+    override fun onTrackClick(track: RunningModel) {
+        val launcherIntent = Intent(this, RunningActivity::class.java)
+        launcherIntent.putExtra("track_edit", track)
+        getClickResult.launch(launcherIntent)
+    }
+
+    private val getClickResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                (binding.recyclerView.adapter)?.
+                notifyItemRangeChanged(0,app.runningTracks.findAll().size)
             }
         }
 }
