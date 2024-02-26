@@ -4,4 +4,5 @@ interface RunningStore {
     fun findAll(): List<RunningModel>
     fun create(track: RunningModel)
     fun update(track: RunningModel)
+    fun delete(track: RunningModel)
 }

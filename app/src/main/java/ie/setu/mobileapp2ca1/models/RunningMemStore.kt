@@ -38,4 +38,9 @@ class RunningMemStore: RunningStore {
         }
     }
 
+    override fun delete(track: RunningModel) {
+        //No point implementing
+        TODO("Not yet implemented")
+    }
+
 }

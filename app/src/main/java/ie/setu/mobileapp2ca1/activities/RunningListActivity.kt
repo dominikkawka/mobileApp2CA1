@@ -18,8 +18,11 @@ import ie.setu.mobileapp2ca1.models.RunningModel
 class RunningListActivity : AppCompatActivity(), RunningListener {
     lateinit var app: MainApp
     private lateinit var binding: ActivityRunningListBinding
+    private var position: Int = 0
+    var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        edit = true
         super.onCreate(savedInstanceState)
         binding = ActivityRunningListBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -35,6 +38,7 @@ class RunningListActivity : AppCompatActivity(), RunningListener {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+        if (edit) menu.getItem(0).isVisible = true
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -59,9 +63,10 @@ class RunningListActivity : AppCompatActivity(), RunningListener {
             }
         }
 
-    override fun onTrackClick(track: RunningModel) {
+    override fun onTrackClick(track: RunningModel, pos: Int) {
         val launcherIntent = Intent(this, RunningActivity::class.java)
         launcherIntent.putExtra("track_edit", track)
+        position = pos
         getClickResult.launch(launcherIntent)
     }
 
@@ -73,5 +78,7 @@ class RunningListActivity : AppCompatActivity(), RunningListener {
                 (binding.recyclerView.adapter)?.
                 notifyItemRangeChanged(0,app.runningTracks.findAll().size)
             }
+            else // Deleting
+                if (it.resultCode == 99)     (binding.recyclerView.adapter)?.notifyItemRemoved(position)
         }
 }
