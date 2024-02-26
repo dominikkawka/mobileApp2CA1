@@ -8,6 +8,7 @@
     <string name="hint_trackDescription">Track Description</string>
     <string name="menu_addTrack">Add</string>
     <string name="menu_cancelTrack">Cancel</string>
+    <string name="menu_deleteTrack">Delete</string>
     <string name="snackbar_invalidTrack">Please Enter a title</string>
     <string name="select_trackImage">Select Track Image</string>
     <string name="select_changeTrackImage">Change Track Image</string>

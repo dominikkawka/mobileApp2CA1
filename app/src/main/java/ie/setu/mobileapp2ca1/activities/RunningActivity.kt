@@ -26,10 +26,11 @@ class RunningActivity : AppCompatActivity() {
 
     var runningTrack = RunningModel()
     lateinit var app: MainApp
+    var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var edit = false
+
         binding = ActivityRunningBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbarAdd.title = title
@@ -52,7 +53,7 @@ class RunningActivity : AppCompatActivity() {
         }
 
         binding.chooseImage.setOnClickListener {
-            showImagePicker(imageIntentLauncher)
+            showImagePicker(imageIntentLauncher, this)
         }
 
         binding.runningStartLocation.setOnClickListener {
@@ -90,12 +91,18 @@ class RunningActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_track, menu)
+        if (edit) menu.getItem(0).isVisible = true
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_cancel -> {
+                finish()
+            }
+            R.id.item_delete -> {
+                setResult(99)
+                app.runningTracks.delete(runningTrack)
                 finish()
             }
         }
@@ -110,11 +117,17 @@ class RunningActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Result ${result.data!!.data}")
-                            runningTrack.image = result.data!!.data!!
+
+                            val image = result.data!!.data!!
+                            contentResolver.takePersistableUriPermission(image,
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            runningTrack.image = image
+
                             Picasso.get()
                                 .load(runningTrack.image)
                                 .into(binding.trackImage)
-                        }
+                            binding.chooseImage.setText(R.string.select_changeTrackImage)
+                        } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
                 }
