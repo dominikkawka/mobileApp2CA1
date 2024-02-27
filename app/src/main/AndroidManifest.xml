@@ -33,11 +33,11 @@
             android:value="${MAPS_API_KEY}" />
 
         <activity
-            android:name=".activities.MapActivity"
+            android:name=".view.EditStartLocationView"
             android:exported="false"
             android:label="@string/title_activity_map" />
         <activity
-            android:name=".activities.RunningListActivity"
+            android:name=".view.RunningListView"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,7 +46,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.RunningActivity"
+            android:name=".view.RunningView"
             android:exported="true"></activity>
     </application>
 
