@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.setu.mobileapp2ca1.R
 import ie.setu.mobileapp2ca1.adapters.RunningAdapter
@@ -22,6 +23,7 @@ class RunningListView : AppCompatActivity(), RunningListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         binding = ActivityRunningListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbar.title = title

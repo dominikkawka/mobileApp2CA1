@@ -11,6 +11,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
     </style>
-
     <style name="Theme.MobileApp2CA1" parent="Base.Theme.MobileApp2CA1" />
+
+
+
 </resources>

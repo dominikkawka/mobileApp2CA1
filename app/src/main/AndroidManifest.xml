@@ -38,6 +38,7 @@
             android:label="@string/title_activity_map" />
         <activity
             android:name=".view.RunningListView"
+            android:theme="@style/Theme.MobileApp2CA1.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
