@@ -68,6 +68,16 @@ class RunningView : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             presenter.doSetLocation()
         }
 
+        binding.runningEndLocation.setOnClickListener {
+            presenter.cacheTrack(
+                binding.runningTitle.text.toString(),
+                binding.runningTitle.text.toString(),
+                binding.runningDifficulty.progress,
+                spinner.selectedItem.toString()
+            )
+            presenter.doEndLocation()
+        }
+
         binding.btnAdd.setOnClickListener {
             if (binding.runningTitle.text.toString().isEmpty()) {
                 Snackbar.make(binding.root, R.string.hint_trackTitle, Snackbar.LENGTH_LONG)

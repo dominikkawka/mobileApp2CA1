@@ -15,6 +15,7 @@ import ie.setu.mobileapp2ca1.helpers.showImagePicker
 import ie.setu.mobileapp2ca1.main.MainApp
 import ie.setu.mobileapp2ca1.models.Location
 import ie.setu.mobileapp2ca1.models.RunningModel
+import ie.setu.mobileapp2ca1.view.EditEndLocationView
 import timber.log.Timber
 
 
@@ -77,6 +78,18 @@ class RunningPresenter(private val view: RunningView) {
         mapIntentLauncher.launch(launcherIntent)
     }
 
+    fun doEndLocation() {
+        val location = Location(52.245696, -7.139102, 15f)
+        if (runningTrack.endZoom != 0f) {
+            location.lat =  runningTrack.endLat
+            location.lng = runningTrack.endLng
+            location.zoom = runningTrack.endZoom
+        }
+        val launcherIntent = Intent(view, EditEndLocationView::class.java)
+            .putExtra("location", location)
+        mapIntentLauncher.launch(launcherIntent)
+    }
+
     fun cacheTrack (title: String, description: String, difficulty: Int, weather: String) {
         runningTrack.title = title;
         runningTrack.description = description
@@ -109,11 +122,23 @@ class RunningPresenter(private val view: RunningView) {
                     AppCompatActivity.RESULT_OK -> {
                         if (result.data != null) {
                             Timber.i("Got Location ${result.data.toString()}")
-                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
-                            Timber.i("Location == $location")
-                            runningTrack.startLat = location.lat
-                            runningTrack.startLng = location.lng
-                            runningTrack.startZoom = location.zoom
+
+                            if (result.data!!.extras?.containsKey("location") == true) {
+                                val location = result.data!!.extras?.getParcelable<Location>("location")!!
+                                Timber.i("Location == $location")
+                                runningTrack.startLat = location.lat
+                                runningTrack.startLng = location.lng
+                                runningTrack.startZoom = location.zoom
+                            }
+
+                            if (result.data!!.extras?.containsKey("location") == true) {
+                                val location = result.data!!.extras?.getParcelable<Location>("location")!!
+                                Timber.i("Location == $location")
+                                runningTrack.endLat = location.lat
+                                runningTrack.endLng = location.lng
+                                runningTrack.endZoom = location.zoom
+                            }
+
                         } // end of if
                     }
                     AppCompatActivity.RESULT_CANCELED -> { } else -> { }
