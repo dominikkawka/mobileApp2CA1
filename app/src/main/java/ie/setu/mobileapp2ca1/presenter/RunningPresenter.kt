@@ -34,9 +34,10 @@ class RunningPresenter(private val view: RunningView) {
         registerMapCallback()
     }
 
-    fun doAddOrSave(title: String, description: String) {
+    fun doAddOrSave(title: String, description: String, difficulty: Int) {
         runningTrack.title = title
         runningTrack.description = description
+        runningTrack.difficulty = difficulty
         if (edit) {
             app.runningTracks.update(runningTrack)
         } else {
@@ -72,9 +73,10 @@ class RunningPresenter(private val view: RunningView) {
         mapIntentLauncher.launch(launcherIntent)
     }
 
-    fun cacheTrack (title: String, description: String) {
+    fun cacheTrack (title: String, description: String, difficulty: Int) {
         runningTrack.title = title;
         runningTrack.description = description
+        runningTrack.difficulty = difficulty
     }
 
     private fun registerImagePickerCallback() {

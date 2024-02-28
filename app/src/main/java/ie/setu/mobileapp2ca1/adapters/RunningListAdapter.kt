@@ -37,6 +37,7 @@ class RunningAdapter constructor(
         fun bind(running: RunningModel, listener: RunningListener) {
             binding.runningTitle.text = running.title
             binding.runningDescription.text = running.description
+            binding.runningDifficulty.text = running.difficulty.toString() + " ★\t"
             Picasso.get().load(running.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onTrackClick(running,adapterPosition) }
         }

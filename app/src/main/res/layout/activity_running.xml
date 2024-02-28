@@ -68,6 +68,17 @@ tools:context="ie.setu.mobileapp2ca1.view.RunningView">
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14sp" />
 
+            <SeekBar
+                android:id="@+id/runningDifficulty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="4"
+                android:thumbTint="@color/colorAccent"
+                android:progressTint="@color/colorAccent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_gravity="center"/>
+
             <Button
                 android:id="@+id/chooseImage"
                 android:layout_width="match_parent"
