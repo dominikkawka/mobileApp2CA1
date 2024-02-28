@@ -1,7 +1,10 @@
 package ie.setu.mobileapp2ca1.presenter
 
+import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.view.View
+import android.widget.AdapterView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -34,10 +37,11 @@ class RunningPresenter(private val view: RunningView) {
         registerMapCallback()
     }
 
-    fun doAddOrSave(title: String, description: String, difficulty: Int) {
+    fun doAddOrSave(title: String, description: String, difficulty: Int, weather: String) {
         runningTrack.title = title
         runningTrack.description = description
         runningTrack.difficulty = difficulty
+        runningTrack.weatherCondition = weather
         if (edit) {
             app.runningTracks.update(runningTrack)
         } else {
@@ -73,10 +77,11 @@ class RunningPresenter(private val view: RunningView) {
         mapIntentLauncher.launch(launcherIntent)
     }
 
-    fun cacheTrack (title: String, description: String, difficulty: Int) {
+    fun cacheTrack (title: String, description: String, difficulty: Int, weather: String) {
         runningTrack.title = title;
         runningTrack.description = description
         runningTrack.difficulty = difficulty
+        runningTrack.weatherCondition = weather
     }
 
     private fun registerImagePickerCallback() {

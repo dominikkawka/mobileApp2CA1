@@ -14,4 +14,11 @@
     <string name="select_changeTrackImage">Change Track Image</string>
     <string name="title_activity_map">MapActivity</string>
 
+    <string-array name="options_weather">
+        <item>Clear</item>
+        <item>Sunny</item>
+        <item>Windy</item>
+        <item>Rainy</item>
+    </string-array>
+
 </resources>
