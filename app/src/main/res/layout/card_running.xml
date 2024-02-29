@@ -40,5 +40,25 @@
             android:layout_marginTop="2dp"
             tools:text="A Description" />
 
+        <TextView
+            android:id="@+id/runningDifficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/runningDescription"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="2dp"
+            tools:text="Difficulty" />
+
+        <TextView
+            android:id="@+id/runningWeather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/runningDifficulty"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="2dp"
+            tools:text="Weather" />
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -52,10 +52,16 @@ class RunningJSONStore(private val context: Context) : RunningStore {
             editedTrack.startLng = track.startLng
             editedTrack.startLat = track.startLat
             editedTrack.startZoom = track.startZoom
+
+            editedTrack.endLat = track.endLat
+            editedTrack.endLng = track.endLng
+            editedTrack.endZoom = track.endZoom
+            editedTrack.difficulty = track.difficulty
+            editedTrack.distance = track.distance
+            editedTrack.weatherCondition = track.weatherCondition
         }
         serialize()
     }
-
     override fun delete(track: RunningModel) {
         runningTracks.remove(track)
     }

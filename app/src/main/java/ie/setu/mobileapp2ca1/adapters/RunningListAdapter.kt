@@ -27,8 +27,6 @@ class RunningAdapter constructor(
         holder.bind(tracks, listener)
     }
 
-
-
     override fun getItemCount(): Int = runningTracks.size
 
     class MainHolder(private val binding : CardRunningBinding) :
@@ -37,6 +35,8 @@ class RunningAdapter constructor(
         fun bind(running: RunningModel, listener: RunningListener) {
             binding.runningTitle.text = running.title
             binding.runningDescription.text = running.description
+            binding.runningDifficulty.text = running.difficulty.toString() + " ★\t"
+            binding.runningWeather.text = running.weatherCondition
             Picasso.get().load(running.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onTrackClick(running,adapterPosition) }
         }
