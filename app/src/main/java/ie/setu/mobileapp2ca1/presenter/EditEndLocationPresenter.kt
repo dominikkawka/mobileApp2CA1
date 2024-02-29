@@ -39,7 +39,7 @@ class EditEndLocationPresenter(val view: EditEndLocationView) {
 
     fun doOnBackPressed() {
         val resultIntent = Intent()
-        resultIntent.putExtra("location", location)
+        resultIntent.putExtra("endLocation", location)
         view.setResult(Activity.RESULT_OK, resultIntent)
         view.finish()
     }

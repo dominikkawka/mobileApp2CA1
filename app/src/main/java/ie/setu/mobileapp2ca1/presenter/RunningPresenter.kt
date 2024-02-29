@@ -3,11 +3,13 @@ package ie.setu.mobileapp2ca1.presenter
 import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.location.Location.distanceBetween
 import android.view.View
 import android.widget.AdapterView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.github.ajalt.timberkt.i
 import ie.setu.mobileapp2ca1.view.EditStartLocationView
 import ie.setu.mobileapp2ca1.view.RunningView
 import ie.setu.mobileapp2ca1.databinding.ActivityRunningBinding
@@ -17,6 +19,7 @@ import ie.setu.mobileapp2ca1.models.Location
 import ie.setu.mobileapp2ca1.models.RunningModel
 import ie.setu.mobileapp2ca1.view.EditEndLocationView
 import timber.log.Timber
+import timber.log.Timber.i
 
 
 class RunningPresenter(private val view: RunningView) {
@@ -39,10 +42,18 @@ class RunningPresenter(private val view: RunningView) {
     }
 
     fun doAddOrSave(title: String, description: String, difficulty: Int, weather: String) {
-        runningTrack.title = title
-        runningTrack.description = description
-        runningTrack.difficulty = difficulty
-        runningTrack.weatherCondition = weather
+        runningTrack.apply {
+            this.title = title
+            this.description = description
+            this.difficulty = difficulty
+            this.weatherCondition = weather
+
+            //TODO: BUG: distance value returns as 0.0
+            val distanceResults = FloatArray(1)
+            distanceBetween(startLat, startLng, endLat, endLng, distanceResults)
+            i("distance results: ${distanceResults[0]}")
+            this.distance = distanceResults[0]
+        }
         if (edit) {
             app.runningTracks.update(runningTrack)
         } else {
@@ -79,7 +90,7 @@ class RunningPresenter(private val view: RunningView) {
     }
 
     fun doEndLocation() {
-        val location = Location(52.245696, -7.139102, 15f)
+        val location = Location(52.245691, -7.139102, 15f)
         if (runningTrack.endZoom != 0f) {
             location.lat =  runningTrack.endLat
             location.lng = runningTrack.endLng
