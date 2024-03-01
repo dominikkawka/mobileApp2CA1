@@ -6,7 +6,7 @@ import androidx.activity.result.ActivityResultLauncher
 import ie.setu.mobileapp2ca1.R
 
 fun showImagePicker(intentLauncher: ActivityResultLauncher<Intent>, context: Context) {
-    var imagePickerTargetIntent = Intent()
+    var imagePickerTargetIntent = Intent(Intent.ACTION_PICK)
 
     imagePickerTargetIntent.action = Intent.ACTION_OPEN_DOCUMENT
     imagePickerTargetIntent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
@@ -16,13 +16,3 @@ fun showImagePicker(intentLauncher: ActivityResultLauncher<Intent>, context: Con
         context.getString(R.string.select_trackImage))
     intentLauncher.launch(imagePickerTargetIntent)
 }
-
-/*
-
-fun showImagePicker(intentLauncher : ActivityResultLauncher<Intent>) {
-    var chooseFile = Intent(Intent.ACTION_OPEN_DOCUMENT)
-    chooseFile.type = "image/*"
-    chooseFile = Intent.createChooser(chooseFile, R.string.select_trackImage.toString())
-    intentLauncher.launch(chooseFile)
-}
-*/

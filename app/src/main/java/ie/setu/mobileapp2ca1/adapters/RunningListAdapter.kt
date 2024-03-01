@@ -27,6 +27,11 @@ class RunningAdapter constructor(
         holder.bind(tracks, listener)
     }
 
+    fun updateTracks(newTracks: List<RunningModel>) {
+        runningTracks = newTracks
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int = runningTracks.size
 
     class MainHolder(private val binding : CardRunningBinding) :
