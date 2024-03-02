@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MobileApp2CA1</string>
+    <string name="app_name">Running CA1</string>
     <string name="button_addTrack">Add Track</string>
     <string name="button_saveTrack">Save Track</string>
     <string name="button_addImage"> Add Image </string>
