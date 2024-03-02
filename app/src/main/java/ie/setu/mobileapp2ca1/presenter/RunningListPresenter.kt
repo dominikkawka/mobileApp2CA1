@@ -8,6 +8,7 @@ import ie.setu.mobileapp2ca1.view.RunningListView
 import ie.setu.mobileapp2ca1.view.RunningView
 import ie.setu.mobileapp2ca1.main.MainApp
 import ie.setu.mobileapp2ca1.models.RunningModel
+import timber.log.Timber.i
 
 class RunningListPresenter(val view: RunningListView) {
 
@@ -34,6 +35,24 @@ class RunningListPresenter(val view: RunningListView) {
         launcherIntent.putExtra("track_edit", track)
         position = pos
         refreshIntentLauncher.launch(launcherIntent)
+    }
+
+    fun doSearchTrack(trackTitle: String) {
+        val searchResults = searchTracks(getTracks(), trackTitle)
+        i("search results: $searchResults")
+        //This works; just how do I get this to show in the recycler view?
+        view.showSearchedTracks(searchResults)
+    }
+
+    private fun searchTracks(tracks: List<RunningModel>, trackTitle: String): List<RunningModel> {
+        val result = mutableListOf<RunningModel>()
+
+        for (track in tracks) {
+            if (track.title.contains(trackTitle, ignoreCase = true)) {
+                result.add(track)
+            }
+        }
+        return result
     }
 
     private fun registerRefreshCallback() {

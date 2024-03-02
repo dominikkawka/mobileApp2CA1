@@ -3,10 +3,12 @@
     <string name="button_addTrack">Add Track</string>
     <string name="button_saveTrack">Save Track</string>
     <string name="button_addImage"> Add Image </string>
+    <string name="button_takePhoto"> Take Photo </string>
     <string name="button_location"> Set Location </string>
     <string name="button_location_end"> Set Destination </string>
     <string name="hint_trackTitle">Track Title</string>
     <string name="hint_trackDescription">Track Description</string>
+    <string name="hint_trackSearch">Track Search by Title</string>
     <string name="menu_addTrack">Add</string>
     <string name="menu_cancelTrack">Cancel</string>
     <string name="menu_deleteTrack">Delete</string>

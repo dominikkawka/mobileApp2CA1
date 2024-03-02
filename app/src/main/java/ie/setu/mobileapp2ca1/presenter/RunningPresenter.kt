@@ -2,17 +2,23 @@ package ie.setu.mobileapp2ca1.presenter
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.location.Location.distanceBetween
+import android.net.Uri
+import android.provider.MediaStore
 import android.view.View
 import android.widget.AdapterView
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat.startActivityForResult
 import com.github.ajalt.timberkt.i
 import ie.setu.mobileapp2ca1.view.EditStartLocationView
 import ie.setu.mobileapp2ca1.view.RunningView
 import ie.setu.mobileapp2ca1.databinding.ActivityRunningBinding
+import ie.setu.mobileapp2ca1.helpers.showCamera
 import ie.setu.mobileapp2ca1.helpers.showImagePicker
 import ie.setu.mobileapp2ca1.main.MainApp
 import ie.setu.mobileapp2ca1.models.Location
@@ -29,6 +35,7 @@ class RunningPresenter(private val view: RunningView) {
     var binding: ActivityRunningBinding = ActivityRunningBinding.inflate(view.layoutInflater)
     private lateinit var imageIntentLauncher: ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var cameraIntentLauncher : ActivityResultLauncher<Intent>
     var edit = false;
 
     init {
@@ -77,6 +84,10 @@ class RunningPresenter(private val view: RunningView) {
         showImagePicker(imageIntentLauncher,view)
     }
 
+    fun doOpenCamera() {
+        showCamera(imageIntentLauncher,view)
+    }
+
     fun doSetLocation() {
         val location = Location(52.245696, -7.139102, 15f)
         if (runningTrack.startZoom != 0f) {
@@ -109,21 +120,31 @@ class RunningPresenter(private val view: RunningView) {
     }
 
     private fun registerImagePickerCallback() {
-        imageIntentLauncher =
-            view.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { result ->
-                when(result.resultCode){
-                    AppCompatActivity.RESULT_OK -> {
-                        if (result.data != null) {
-                            Timber.i("Got Result ${result.data!!.data}")
-                            runningTrack.image = result.data!!.data!!
-                            view.contentResolver.takePersistableUriPermission(runningTrack.image,
-                                Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        imageIntentLauncher = view.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            when(result.resultCode) {
+                AppCompatActivity.RESULT_OK -> {
+                    val data = result.data
+                    if (data != null) {
+                        i("Got data result $data")
+                        //when choosing image from file; imageData is there, but data isn't present
+                        //when using camera...
+                        val imageData = data.data
+                        if (imageData != null) {
+                            i("Got Image Data Result $imageData")
+                            runningTrack.image = imageData
+                            view.contentResolver.takePersistableUriPermission(
+                                runningTrack.image,
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION
+                            )
                             view.updateImage(runningTrack.image)
-                        } // end of if
+                        }
                     }
-                    AppCompatActivity.RESULT_CANCELED -> { } else -> { }
-                }            }    }
+                }
+                AppCompatActivity.RESULT_CANCELED -> { }
+                else -> { }
+            }
+        }
+    }
 
     private fun registerMapCallback() {
         mapIntentLauncher =
