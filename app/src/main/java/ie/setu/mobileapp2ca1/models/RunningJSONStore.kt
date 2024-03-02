@@ -64,6 +64,7 @@ class RunningJSONStore(private val context: Context) : RunningStore {
     }
     override fun delete(track: RunningModel) {
         runningTracks.remove(track)
+        serialize()
     }
 
     private fun serialize() {

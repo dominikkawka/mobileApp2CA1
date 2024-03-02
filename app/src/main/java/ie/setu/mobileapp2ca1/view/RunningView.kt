@@ -1,9 +1,12 @@
 package ie.setu.mobileapp2ca1.view
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -56,6 +59,16 @@ class RunningView : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 spinner.selectedItem.toString()
             )
             presenter.doSelectImage()
+        }
+
+        binding.takePhoto.setOnClickListener {
+            presenter.cacheTrack(
+                binding.runningTitle.text.toString(),
+                binding.runningDescription.text.toString(),
+                binding.runningDifficulty.progress,
+                spinner.selectedItem.toString()
+            )
+            presenter.doOpenCamera()
         }
 
         binding.runningStartLocation.setOnClickListener {
