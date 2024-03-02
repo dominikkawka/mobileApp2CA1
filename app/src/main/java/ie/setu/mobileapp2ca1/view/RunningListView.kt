@@ -10,6 +10,7 @@ import android.widget.EditText
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
 import ie.setu.mobileapp2ca1.R
 import ie.setu.mobileapp2ca1.adapters.RunningAdapter
 import ie.setu.mobileapp2ca1.adapters.RunningListener
@@ -40,6 +41,7 @@ class RunningListView : AppCompatActivity(), RunningListener {
         binding.recyclerView.layoutManager = layoutManager
 
         //https://stackoverflow.com/questions/40569436/kotlin-addtextchangelistener-lambda
+        //SEARCH BAR CODE
         val searchBar = findViewById<EditText>(R.id.runningSearchBar)
         searchBar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {
@@ -55,6 +57,46 @@ class RunningListView : AppCompatActivity(), RunningListener {
                 // TODO
             }
         })
+        // CHIP FILTER CODE
+        // There surely is a better way to do this? with ChipGroup Maybe?
+        // https://developer.android.com/reference/com/google/android/material/chip/ChipGroup
+        val clearChip = findViewById<Chip>(R.id.clear_weather_chip)
+        val sunnyChip = findViewById<Chip>(R.id.sunny_weather_chip)
+        val windyChip = findViewById<Chip>(R.id.windy_weather_chip)
+        val rainyChip = findViewById<Chip>(R.id.rainy_weather_chip)
+
+        clearChip.setOnClickListener {
+            if (clearChip.isEnabled) {
+                presenter.doFilterTrackByWeather(clearChip.text.toString())
+            } else {
+                loadTracks()
+            }
+        }
+
+        sunnyChip.setOnClickListener {
+            if (sunnyChip.isEnabled) {
+                presenter.doFilterTrackByWeather(sunnyChip.text.toString())
+            } else {
+                loadTracks()
+            }
+        }
+
+        windyChip.setOnClickListener {
+            if (windyChip.isEnabled) {
+                presenter.doFilterTrackByWeather(windyChip.text.toString())
+            } else {
+                loadTracks()
+            }
+        }
+
+        rainyChip.setOnClickListener {
+            if (rainyChip.isEnabled) {
+                presenter.doFilterTrackByWeather(rainyChip.text.toString())
+            } else {
+                loadTracks()
+            }
+        }
+
         //Loading search tracks; if the search bar is left alone all tracks will load
         loadTracks()
     }
@@ -83,6 +125,11 @@ class RunningListView : AppCompatActivity(), RunningListener {
 
     fun showSearchedTracks(searchedTracks: List<RunningModel>) {
         (binding.recyclerView.adapter as RunningAdapter).updateTracks(searchedTracks)
+        onRefresh()
+    }
+
+    fun showFilteredTracks(filteredTracks: List<RunningModel>) {
+        (binding.recyclerView.adapter as RunningAdapter).updateTracks(filteredTracks)
         onRefresh()
     }
 

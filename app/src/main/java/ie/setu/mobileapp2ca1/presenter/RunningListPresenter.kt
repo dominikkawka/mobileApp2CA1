@@ -40,8 +40,13 @@ class RunningListPresenter(val view: RunningListView) {
     fun doSearchTrack(trackTitle: String) {
         val searchResults = searchTracks(getTracks(), trackTitle)
         i("search results: $searchResults")
-        //This works; just how do I get this to show in the recycler view?
         view.showSearchedTracks(searchResults)
+    }
+
+    fun doFilterTrackByWeather(trackWeatherCondition: String) {
+        val filterResults = filterTracks(getTracks(), trackWeatherCondition)
+        i ("filter results: $filterResults")
+        view.showFilteredTracks(filterResults)
     }
 
     private fun searchTracks(tracks: List<RunningModel>, trackTitle: String): List<RunningModel> {
@@ -49,6 +54,17 @@ class RunningListPresenter(val view: RunningListView) {
 
         for (track in tracks) {
             if (track.title.contains(trackTitle, ignoreCase = true)) {
+                result.add(track)
+            }
+        }
+        return result
+    }
+
+    private fun filterTracks(tracks: List<RunningModel>, trackWeatherCondition: String): List<RunningModel> {
+        val result = mutableListOf<RunningModel>()
+
+        for (track in tracks) {
+            if (track.weatherCondition.contains(trackWeatherCondition, ignoreCase = true)) {
                 result.add(track)
             }
         }
