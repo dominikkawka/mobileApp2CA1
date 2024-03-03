@@ -40,33 +40,59 @@ tools:context="ie.setu.mobileapp2ca1.view.RunningView">
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/runningTitle"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/runningTitleLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_margin="8dp"
-                android:autofillHints="hint"
-                android:hint="@string/hint_trackTitle"
-                android:inputType="text"
-                android:maxLength="25"
-                android:maxLines="1"
-                android:padding="8dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
 
-            <EditText
-                android:id="@+id/runningDescription"
+                <EditText
+                    android:id="@+id/runningTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:autofillHints="hint"
+                    android:hint="@string/hint_trackTitle"
+                    android:inputType="text"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/runningDescriptionLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_margin="8dp"
-                android:autofillHints="hint"
-                android:hint="@string/hint_trackDescription"
-                android:inputType="text"
-                android:maxLength="25"
-                android:maxLines="1"
-                android:padding="8dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <EditText
+                    android:id="@+id/runningDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:autofillHints="hint"
+                    android:hint="@string/hint_trackDescription"
+                    android:inputType="text"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/hint_difficultySeekbar"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <SeekBar
                 android:id="@+id/runningDifficulty"
@@ -74,10 +100,7 @@ tools:context="ie.setu.mobileapp2ca1.view.RunningView">
                 android:layout_height="wrap_content"
                 android:max="4"
                 android:thumbTint="@color/colorAccent"
-                android:progressTint="@color/colorAccent"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_gravity="center"/>
+                android:progressTint="@color/colorAccent"/>
 
             <Spinner
                 android:id="@+id/runningWeather"
@@ -91,11 +114,11 @@ tools:context="ie.setu.mobileapp2ca1.view.RunningView">
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:background="@color/colorAccent"
-                android:paddingBottom="8dp"
                 android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:text="@string/button_addImage"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"/>
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/takePhoto"
@@ -103,11 +126,11 @@ tools:context="ie.setu.mobileapp2ca1.view.RunningView">
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:background="@color/colorAccent"
-                android:paddingBottom="8dp"
                 android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:text="@string/button_takePhoto"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"/>
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <ImageView
                 android:id="@+id/trackImage"
@@ -121,12 +144,12 @@ tools:context="ie.setu.mobileapp2ca1.view.RunningView">
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:background="@color/colorAccent"
-                android:paddingBottom="8dp"
                 android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:stateListAnimator="@null"
                 android:text="@string/button_location"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"/>
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/runningEndLocation"
@@ -134,12 +157,12 @@ tools:context="ie.setu.mobileapp2ca1.view.RunningView">
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:background="@color/colorAccent"
-                android:paddingBottom="8dp"
                 android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:stateListAnimator="@null"
                 android:text="@string/button_location_end"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"/>
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btnAdd"
@@ -151,7 +174,7 @@ tools:context="ie.setu.mobileapp2ca1.view.RunningView">
                 android:paddingBottom="8dp"
                 android:stateListAnimator="@null"
                 android:text="@string/button_addTrack"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
