@@ -22,7 +22,7 @@ fun generateRandomId(): Long {
 
 class RunningJSONStore(private val context: Context) : RunningStore {
 
-    var runningTracks = mutableListOf<RunningModel>()
+    private var runningTracks = mutableListOf<RunningModel>()
 
     init {
         if (exists(context, JSON_FILE)) {
@@ -44,7 +44,7 @@ class RunningJSONStore(private val context: Context) : RunningStore {
 
     override fun update(track: RunningModel) {
         val runningTrackList = findAll() as ArrayList<RunningModel>
-        var editedTrack: RunningModel? = runningTrackList.find { p -> p.id === track.id}
+        val editedTrack: RunningModel? = runningTrackList.find { p -> p.id === track.id}
         if (editedTrack != null) {
             editedTrack.title = track.title
             editedTrack.description = track.description

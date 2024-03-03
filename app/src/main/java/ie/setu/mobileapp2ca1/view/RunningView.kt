@@ -1,12 +1,8 @@
 package ie.setu.mobileapp2ca1.view
 
-import android.app.Activity
-import android.content.ActivityNotFoundException
-import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -25,7 +21,7 @@ class RunningView : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: ActivityRunningBinding
     private lateinit var presenter: RunningPresenter
-    var runningTrack = RunningModel()
+    //var runningTrack = RunningModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,14 +88,30 @@ class RunningView : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
 
         binding.btnAdd.setOnClickListener {
+            var runningDescription = binding.runningDescription.text.toString()
+            if (runningDescription.isEmpty()) {
+                runningDescription = "No Description."
+            }
+
             if (binding.runningTitle.text.toString().isEmpty()) {
                 Snackbar.make(binding.root, R.string.hint_trackTitle, Snackbar.LENGTH_LONG)
+                    .show()
+            } else if (
+                //If weather dropdown values are somehow changed;
+                spinner.selectedItem.toString() == R.string.chip_clear_weather.toString() ||
+                spinner.selectedItem.toString() == R.string.chip_rainy_weather.toString() ||
+                spinner.selectedItem.toString() == R.string.chip_sunny_weather.toString() ||
+                spinner.selectedItem.toString() == R.string.chip_windy_weather.toString()
+            ) {
+                //i(spinner.selectedItem.toString())
+                //i(R.string.chip_clear_weather.toString())
+                Snackbar.make(binding.root, R.string.hint_weatherSelect, Snackbar.LENGTH_LONG)
                     .show()
             } else {
                 presenter.doAddOrSave(
                     binding.runningTitle.text.toString(),
-                    binding.runningDescription.text.toString(),
-                    binding.runningDifficulty.progress + 1,  //+1 since ratings start at 0 in seekbar
+                    runningDescription,
+                    binding.runningDifficulty.progress + 1,  // +1 since ratings start at 0 in seekbar
                     spinner.selectedItem.toString()
                 )
             }
@@ -128,10 +140,12 @@ class RunningView : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     fun showTrack(runningTrack: RunningModel) {
         binding.runningTitle.setText(runningTrack.title)
-        binding.runningDescription.setText(runningTrack.description)
+        if (runningTrack.description == "No Description.") {
+            binding.runningDescription.setText("")
+        } else {
+            binding.runningDescription.setText(runningTrack.description)
+        }
         binding.runningDifficulty.setProgress(runningTrack.difficulty - 1) //-1 since ratings start at 0 in seekbar
-
-        //TODO show weather condition in spinner
 
         binding.btnAdd.setText(R.string.button_saveTrack)
         Picasso.get()

@@ -15,16 +15,16 @@ class EditEndLocationView : AppCompatActivity(), OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener {
 
     private lateinit var map: GoogleMap
-    lateinit var presenter: EditEndLocationPresenter
-    var endLocation = Location()
+    private lateinit var presenter: EditEndLocationPresenter
+    private var endLocation = Location()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map)
+        setContentView(R.layout.activity_map_end)
         presenter = EditEndLocationPresenter(this)
-        endLocation = intent.extras?.getParcelable<Location>("location")!!
+        endLocation = intent.extras?.getParcelable("location")!!
         val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
+            .findFragmentById(R.id.mapEnd) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
 
@@ -50,6 +50,6 @@ class EditEndLocationView : AppCompatActivity(), OnMapReadyCallback,
 
     override fun onBackPressed() {
         presenter.doOnBackPressed()
-
+        super.onBackPressed()
     }
 }

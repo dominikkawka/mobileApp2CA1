@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import ie.setu.mobileapp2ca1.R
 import ie.setu.mobileapp2ca1.databinding.CardRunningBinding
 import ie.setu.mobileapp2ca1.models.RunningModel
 
@@ -11,7 +12,7 @@ interface RunningListener {
     fun onTrackClick(track: RunningModel, position: Int)
 }
 
-class RunningAdapter constructor(
+class RunningAdapter(
     private var runningTracks: List<RunningModel>,
     private val listener: RunningListener) : RecyclerView.Adapter<RunningAdapter.MainHolder>() {
 

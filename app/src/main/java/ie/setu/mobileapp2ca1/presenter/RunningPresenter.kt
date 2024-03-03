@@ -1,42 +1,31 @@
 package ie.setu.mobileapp2ca1.presenter
 
-import android.app.Activity
 import android.app.Activity.RESULT_OK
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.location.Location.distanceBetween
-import android.net.Uri
-import android.provider.MediaStore
-import android.view.View
-import android.widget.AdapterView
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat.startActivityForResult
-import com.github.ajalt.timberkt.i
 import ie.setu.mobileapp2ca1.view.EditStartLocationView
 import ie.setu.mobileapp2ca1.view.RunningView
-import ie.setu.mobileapp2ca1.databinding.ActivityRunningBinding
 import ie.setu.mobileapp2ca1.helpers.showCamera
 import ie.setu.mobileapp2ca1.helpers.showImagePicker
 import ie.setu.mobileapp2ca1.main.MainApp
 import ie.setu.mobileapp2ca1.models.Location
 import ie.setu.mobileapp2ca1.models.RunningModel
 import ie.setu.mobileapp2ca1.view.EditEndLocationView
-import timber.log.Timber
 import timber.log.Timber.i
 
 
 class RunningPresenter(private val view: RunningView) {
 
-    var runningTrack = RunningModel()
+    private var runningTrack = RunningModel()
     var app: MainApp = view.application as MainApp
-    var binding: ActivityRunningBinding = ActivityRunningBinding.inflate(view.layoutInflater)
+    //var binding: ActivityRunningBinding = ActivityRunningBinding.inflate(view.layoutInflater)
     private lateinit var imageIntentLauncher: ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
-    private lateinit var cameraIntentLauncher : ActivityResultLauncher<Intent>
-    var edit = false;
+    //private lateinit var cameraIntentLauncher : ActivityResultLauncher<Intent>
+    var edit = false
 
     init {
         if (view.intent.hasExtra("track_edit")) {
@@ -58,6 +47,8 @@ class RunningPresenter(private val view: RunningView) {
             //TODO: BUG: distance value returns as 0.0
             val distanceResults = FloatArray(1)
             distanceBetween(startLat, startLng, endLat, endLng, distanceResults)
+            i("start: $startLat $startLng")
+            i("end: $endLat $endLng")
             i("distance results: ${distanceResults[0]}")
             this.distance = distanceResults[0]
         }
@@ -101,19 +92,19 @@ class RunningPresenter(private val view: RunningView) {
     }
 
     fun doEndLocation() {
-        val location = Location(52.245691, -7.139102, 15f)
+        val endLocation = Location(52.245691, -7.139102, 15f)
         if (runningTrack.endZoom != 0f) {
-            location.lat =  runningTrack.endLat
-            location.lng = runningTrack.endLng
-            location.zoom = runningTrack.endZoom
+            endLocation.lat =  runningTrack.endLat
+            endLocation.lng = runningTrack.endLng
+            endLocation.zoom = runningTrack.endZoom
         }
         val launcherIntent = Intent(view, EditEndLocationView::class.java)
-            .putExtra("location", location)
+            .putExtra("location", endLocation)
         mapIntentLauncher.launch(launcherIntent)
     }
 
     fun cacheTrack (title: String, description: String, difficulty: Int, weather: String) {
-        runningTrack.title = title;
+        runningTrack.title = title
         runningTrack.description = description
         runningTrack.difficulty = difficulty
         runningTrack.weatherCondition = weather
@@ -153,11 +144,11 @@ class RunningPresenter(private val view: RunningView) {
                 when (result.resultCode) {
                     AppCompatActivity.RESULT_OK -> {
                         if (result.data != null) {
-                            Timber.i("Got Location ${result.data.toString()}")
+                            i("Got Location ${result.data.toString()}")
 
                             if (result.data!!.extras?.containsKey("location") == true) {
                                 val location = result.data!!.extras?.getParcelable<Location>("location")!!
-                                Timber.i("Location == $location")
+                                i("Location == $location")
                                 runningTrack.startLat = location.lat
                                 runningTrack.startLng = location.lng
                                 runningTrack.startZoom = location.zoom
@@ -165,7 +156,7 @@ class RunningPresenter(private val view: RunningView) {
 
                             if (result.data!!.extras?.containsKey("location") == true) {
                                 val location = result.data!!.extras?.getParcelable<Location>("location")!!
-                                Timber.i("Location == $location")
+                                i("Location == $location")
                                 runningTrack.endLat = location.lat
                                 runningTrack.endLng = location.lng
                                 runningTrack.endZoom = location.zoom

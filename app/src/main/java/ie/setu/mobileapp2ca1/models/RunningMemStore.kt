@@ -9,7 +9,7 @@ internal fun getId(): Long {
 }
 
 class RunningMemStore: RunningStore {
-    val runningTracks = ArrayList<RunningModel>()
+    private val runningTracks = ArrayList<RunningModel>()
 
     private fun logAll() {
         runningTracks.forEach{ i("$it") }
@@ -26,7 +26,7 @@ class RunningMemStore: RunningStore {
     }
 
     override fun update(track: RunningModel) {
-        var foundTrack: RunningModel? = runningTracks.find { p -> p.id == track.id }
+        val foundTrack: RunningModel? = runningTracks.find { p -> p.id == track.id }
         if (foundTrack != null) {
             foundTrack.title = track.title
             foundTrack.description = track.description

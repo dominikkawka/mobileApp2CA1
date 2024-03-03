@@ -9,6 +9,8 @@
     <string name="hint_trackTitle">Track Title</string>
     <string name="hint_trackDescription">Track Description</string>
     <string name="hint_trackSearch">Track Search by Title</string>
+    <string name="hint_weatherSelect">Invalid Weather Option</string>
+    <string name="hint_difficultySeekbar">Choose Difficulty</string>
     <string name="menu_addTrack">Add</string>
     <string name="menu_cancelTrack">Cancel</string>
     <string name="menu_deleteTrack">Delete</string>
@@ -21,6 +23,8 @@
     <string name="chip_sunny_weather">Sunny</string>
     <string name="chip_windy_weather">Windy</string>
     <string name="chip_rainy_weather">Rainy</string>
+
+    <string name="difficulty_stars">★</string>
 
     <string-array name="options_weather">
         <item>Clear</item>

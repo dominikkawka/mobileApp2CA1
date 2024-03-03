@@ -12,10 +12,10 @@ import ie.setu.mobileapp2ca1.view.EditStartLocationView
 
 class EditStartLocationPresenter(val view: EditStartLocationView) {
 
-    var location = Location()
+    private var location = Location()
 
     init {
-        location = view.intent.extras?.getParcelable<Location>("location")!!
+        location = view.intent.extras?.getParcelable("location")!!
     }
 
     fun initMap(map: GoogleMap) {
