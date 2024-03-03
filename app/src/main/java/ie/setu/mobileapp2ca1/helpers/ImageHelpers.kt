@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.provider.MediaStore
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import ie.setu.mobileapp2ca1.R
 import timber.log.Timber.i
 

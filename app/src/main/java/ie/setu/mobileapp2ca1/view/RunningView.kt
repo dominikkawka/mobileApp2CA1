@@ -1,12 +1,8 @@
 package ie.setu.mobileapp2ca1.view
 
-import android.app.Activity
-import android.content.ActivityNotFoundException
-import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -25,7 +21,7 @@ class RunningView : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: ActivityRunningBinding
     private lateinit var presenter: RunningPresenter
-    var runningTrack = RunningModel()
+    //var runningTrack = RunningModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -12,10 +12,10 @@ import ie.setu.mobileapp2ca1.view.EditEndLocationView
 
 class EditEndLocationPresenter(val view: EditEndLocationView) {
 
-    var location = Location()
+    private var location = Location()
 
     init {
-        location = view.intent.extras?.getParcelable<Location>("endLocation")?: Location()
+        location = view.intent.extras?.getParcelable("endLocation")?: Location()
     }
 
     fun initMap(map: GoogleMap) {

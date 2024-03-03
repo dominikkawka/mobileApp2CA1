@@ -23,6 +23,8 @@
     <string name="chip_windy_weather">Windy</string>
     <string name="chip_rainy_weather">Rainy</string>
 
+    <string name="difficulty_stars">%d ★\t</string>
+
     <string-array name="options_weather">
         <item>Clear</item>
         <item>Sunny</item>

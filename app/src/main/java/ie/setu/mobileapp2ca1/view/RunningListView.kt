@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.widget.EditText
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import ie.setu.mobileapp2ca1.R
 import ie.setu.mobileapp2ca1.adapters.RunningAdapter

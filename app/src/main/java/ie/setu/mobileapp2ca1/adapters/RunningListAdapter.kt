@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import ie.setu.mobileapp2ca1.R
 import ie.setu.mobileapp2ca1.databinding.CardRunningBinding
 import ie.setu.mobileapp2ca1.models.RunningModel
 
@@ -11,7 +12,7 @@ interface RunningListener {
     fun onTrackClick(track: RunningModel, position: Int)
 }
 
-class RunningAdapter constructor(
+class RunningAdapter(
     private var runningTracks: List<RunningModel>,
     private val listener: RunningListener) : RecyclerView.Adapter<RunningAdapter.MainHolder>() {
 
@@ -40,7 +41,7 @@ class RunningAdapter constructor(
         fun bind(running: RunningModel, listener: RunningListener) {
             binding.runningTitle.text = running.title
             binding.runningDescription.text = running.description
-            binding.runningDifficulty.text = running.difficulty.toString() + " ★\t"
+            binding.runningDifficulty.text = running.difficulty.toString() + R.string.difficulty_stars
             binding.runningWeather.text = running.weatherCondition
             Picasso.get().load(running.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onTrackClick(running,adapterPosition) }

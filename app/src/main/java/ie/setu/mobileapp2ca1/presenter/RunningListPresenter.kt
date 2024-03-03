@@ -12,13 +12,12 @@ import timber.log.Timber.i
 
 class RunningListPresenter(val view: RunningListView) {
 
-    var app: MainApp
+    var app: MainApp = view.application as MainApp
     private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
     private var position: Int = 0
 
     init {
-        app = view.application as MainApp
         registerMapCallback()
         registerRefreshCallback()
     }
