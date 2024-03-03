@@ -58,6 +58,8 @@ class RunningPresenter(private val view: RunningView) {
             //TODO: BUG: distance value returns as 0.0
             val distanceResults = FloatArray(1)
             distanceBetween(startLat, startLng, endLat, endLng, distanceResults)
+            i("start: $startLat $startLng")
+            i("end: $endLat $endLng")
             i("distance results: ${distanceResults[0]}")
             this.distance = distanceResults[0]
         }
@@ -101,14 +103,14 @@ class RunningPresenter(private val view: RunningView) {
     }
 
     fun doEndLocation() {
-        val location = Location(52.245691, -7.139102, 15f)
+        val endLocation = Location(52.245691, -7.139102, 15f)
         if (runningTrack.endZoom != 0f) {
-            location.lat =  runningTrack.endLat
-            location.lng = runningTrack.endLng
-            location.zoom = runningTrack.endZoom
+            endLocation.lat =  runningTrack.endLat
+            endLocation.lng = runningTrack.endLng
+            endLocation.zoom = runningTrack.endZoom
         }
         val launcherIntent = Intent(view, EditEndLocationView::class.java)
-            .putExtra("location", location)
+            .putExtra("location", endLocation)
         mapIntentLauncher.launch(launcherIntent)
     }
 

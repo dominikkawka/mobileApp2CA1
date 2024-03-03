@@ -9,6 +9,7 @@
     <string name="hint_trackTitle">Track Title</string>
     <string name="hint_trackDescription">Track Description</string>
     <string name="hint_trackSearch">Track Search by Title</string>
+    <string name="hint_weatherSelect">Invalid Weather Option</string>
     <string name="menu_addTrack">Add</string>
     <string name="menu_cancelTrack">Cancel</string>
     <string name="menu_deleteTrack">Delete</string>

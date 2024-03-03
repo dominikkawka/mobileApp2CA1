@@ -60,10 +60,19 @@ class RunningListView : AppCompatActivity(), RunningListener {
         // CHIP FILTER CODE
         // There surely is a better way to do this? with ChipGroup Maybe?
         // https://developer.android.com/reference/com/google/android/material/chip/ChipGroup
+        val allChip = findViewById<Chip>(R.id.all_weather_chip)
         val clearChip = findViewById<Chip>(R.id.clear_weather_chip)
         val sunnyChip = findViewById<Chip>(R.id.sunny_weather_chip)
         val windyChip = findViewById<Chip>(R.id.windy_weather_chip)
         val rainyChip = findViewById<Chip>(R.id.rainy_weather_chip)
+
+        allChip.setOnClickListener {
+            if (clearChip.isEnabled) {
+                presenter.doFilterTrackByWeather("")
+            } else {
+                loadTracks()
+            }
+        }
 
         clearChip.setOnClickListener {
             if (clearChip.isEnabled) {
